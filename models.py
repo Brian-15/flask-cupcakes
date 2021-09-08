@@ -14,6 +14,9 @@ class Cupcake(db.Model):
 
     __tablename__ = "cupcakes"
 
+    def __repr__(self):
+        return f"<Cupcake {self.id} {self.flavor} {self.size} {self.rating} >"
+
     id      = db.Column(db.Integer,
                         primary_key=True,
                         autoincrement=True)

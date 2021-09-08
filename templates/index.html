@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container">
+    <h1 class="display-1 text-center">Cupcakes</h1>
+    {% if cupcakes %}
+    <div class="row">
+        <div class="col">
+            {% for cupcake in cupcakes %}
+            <div class="w-100 justify-content-center">
+                <h2 class="display-5 text-center mt-3 mb-3 text-muted">{{cupcake.flavor.capitalize()}} Cupcake</h2>
+                <h3 class="display-7 text-center text-muted">Size: {{cupcake.size}}</h3>
+                <img class="rounded mx-auto d-block" src="{{cupcake.image}}" alt="{{cupcake.flavor}} cupcake">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p>We currently have no cupcakes to display :(</p>
+    {% endif %}
+</div>
+
+{% endblock %}
