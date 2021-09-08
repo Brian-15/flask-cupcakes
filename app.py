@@ -2,6 +2,7 @@
 
 from flask import Flask, request, jsonify, render_template
 from models import Cupcake, connect_db, db
+from forms import NewCupcakeForm
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///cupcakes"
@@ -22,12 +23,13 @@ def serialize_cupcake(cupcake):
         "image": cupcake.image
     }
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home_page():
     """List cupcakes on page"""
+
+    form = NewCupcakeForm()
     
-    cupcakes = Cupcake.query.all()
-    return render_template("index.html", cupcakes=cupcakes)
+    return render_template("index.html", form=form)
 
 @app.route("/api/cupcakes", methods=["GET"])
 def list_all_cupcakes():
@@ -45,7 +47,7 @@ def create_cupcake():
         flavor=request.json.get("flavor", ""),
         size=request.json.get("size", ""),
         rating=request.json.get("rating", ""),
-        image=request.json.get("image", "")
+        image=request.json.get("image", "https://tinyurl.com/demo-cupcake")
     )
     db.session.add(cupcake)
     db.session.commit()
